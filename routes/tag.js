@@ -1,16 +1,16 @@
 const express = require('express')
 const router = express.Router()
-const prisma = require('../db.js')
+
 
 
 
 router.get('/all',async(req,res,next)=>{
-    const data = await prisma.tag.findMany()
+    const data = await req.prisma.tag.findMany()
     res.send(data)
 })
 router.get('/:id',async(req,res,next)=>{
     const id = Number(req.params.id)
-    const data = await prisma.tag.findUnique({
+    const data = await req.prisma.tag.findUnique({
         where:{
             id
         }
@@ -25,7 +25,7 @@ router.post('/',async(req,res,next)=>{
     console.log(req.body)
     const title = req.body.title
     if(title){
-        const data = await prisma.tag.create({
+        const data = await req.prisma.tag.create({
             data:{
                 title
             }

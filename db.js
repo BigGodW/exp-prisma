@@ -1,6 +1,6 @@
-const PClient = require('@prisma/client')
+const {PrismaClient} = require('@prisma/client')
 
 
-const prisma = new PClient.PrismaClient()
+const prisma = new PrismaClient()
 
 module.exports =  prisma

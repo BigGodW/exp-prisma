@@ -43,20 +43,6 @@ router.get('/:id',async(req,res,next)=>{
         res.send('无相关数据')
     }
 })
-<<<<<<< HEAD
-=======
-router.post('/',async(req,res,next)=>{
-    console.log(req.body)
-    const title = req.body.title
-    if(title){
-        const data = await req.prisma.tag.create({
-            data:{
-                title
-            }
-        })
-        res.send(data)
-    }
-})
->>>>>>> 4bf39797299df9dfcdd334c038383789bfd59163
+
 
 module.exports = router

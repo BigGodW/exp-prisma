@@ -5,7 +5,6 @@ const tagRouter = require('./routes/tag.js')
 const prisma = require('./db.js')
 const app = express()
 
-const prisma = require('./db.js')
 
 app.use((req,res,next)=>{
     req.prisma = prisma

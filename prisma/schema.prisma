@@ -8,21 +8,28 @@ datasource db {
 }
 
 model user {
-  id   Int     @id
-  name String? @db.VarChar(255)
-  age  Int?
-  message String? 
-} 
-
-model Habit{
-  id Int @id @default(autoincrement())
-  title String 
-  description String?
-  createdAt DateTime @default(now())
-  isEnd Boolean @default(false)
-  endTime DateTime?
+  id      Int     @id
+  name    String? @db.VarChar(255)
+  age     Int?
+  message String?
 }
-model Tag{
-  id Int @id @default(autoincrement())
-  title String
+
+model habit {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?
+  createdAt   DateTime  @default(now())
+  isEnd       Boolean   @default(false)
+  endTime     DateTime?
+  tag         tag[]
+}
+
+model tag {
+  id        Int      @id @default(autoincrement())
+  title     String
+  createdAt DateTime @default(now())
+  habitId   Int     
+  habit     habit    @relation(fields: [habitId], references: [id], map: "Tag_habitId_fkey")
+
+  @@index([habitId], map: "Tag_habitId_fkey")
 }

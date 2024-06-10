@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
+
 // 获取最后一个未结束的habit
 router.get('/',async (req,res,next)=>{
     const habits = await req.prisma.habit.findFirst({
@@ -11,8 +12,7 @@ router.get('/',async (req,res,next)=>{
             id:"desc"
         }
     })
-    res.send(habits)
-})
+
 // 获取所有habit
 router.get('/all',async(req,res,next)=>{
     const habits = await req.prisma.habit.findMany()

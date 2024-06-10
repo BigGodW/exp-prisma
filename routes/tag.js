@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const prisma = require('../db.js')
+
 
 
 // 获取所有tag
 router.get('/all',async(req,res,next)=>{
-    const data = await prisma.tag.findMany()
+    const data = await req.prisma.tag.findMany()
     res.send(data)
 })
 
@@ -32,7 +32,7 @@ router.get('/habit/:id',async(req,res,next)=>{
 // 获取指定tag
 router.get('/:id',async(req,res,next)=>{
     const id = Number(req.params.id)
-    const data = await prisma.tag.findUnique({
+    const data = await req.prisma.tag.findUnique({
         where:{
             id
         }
@@ -43,5 +43,20 @@ router.get('/:id',async(req,res,next)=>{
         res.send('无相关数据')
     }
 })
+<<<<<<< HEAD
+=======
+router.post('/',async(req,res,next)=>{
+    console.log(req.body)
+    const title = req.body.title
+    if(title){
+        const data = await req.prisma.tag.create({
+            data:{
+                title
+            }
+        })
+        res.send(data)
+    }
+})
+>>>>>>> 4bf39797299df9dfcdd334c038383789bfd59163
 
 module.exports = router

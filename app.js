@@ -1,7 +1,6 @@
 const express = require('express')
 // 引入路由
-const habitRouter = require('./routes/habit')
-const tagRouter = require('./routes/tag.js')
+const apiRouter = require('./routes/api/index.js')
 const prisma = require('./db.js')
 const app = express()
 
@@ -22,10 +21,11 @@ app.use((req,res,next)=>{
 app.get('/',(req,res,next)=>{
     res.send('项目启动成功，使用后端响应api')
 })
-app.use('/habit',habitRouter)
-app.use('/tag',tagRouter)
+app.use('/api',apiRouter)
 
-
+app.use((err,req,res,next)=>{
+    res.send(err)
+})
 
 app.listen(3001,()=>{
     console.log('http://localhost:3001')

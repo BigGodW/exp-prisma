@@ -5,6 +5,22 @@ const prisma = require('./db.js')
 const app = express()
 
 
+// vue项目刷新页面问题
+const history = require('connect-history-api-fallback')
+app.use(history())
+app.use(express.static('public'))
+
+// 前段接口代理
+const {createProxyMiddleware} = require('http-proxy-middleware')
+app.use(
+    '/wubug',createProxyMiddleware({
+        target:"http://localhost:3001/api/",
+        pathRewrite:{'^/wubug':'api'}
+    })
+)
+
+
+
 app.use((req,res,next)=>{
     req.prisma = prisma
     next()
@@ -18,14 +34,17 @@ app.use((req,res,next)=>{
     next()
 })
 
-app.get('/',(req,res,next)=>{
-    res.send('项目启动成功，使用后端响应api')
-})
+
 app.use('/api',apiRouter)
 
 app.use((err,req,res,next)=>{
     res.send(err)
 })
+
+
+
+
+
 
 app.listen(3001,()=>{
     console.log('http://localhost:3001')

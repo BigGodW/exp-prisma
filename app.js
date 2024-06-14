@@ -6,18 +6,18 @@ const app = express()
 
 
 // vue项目刷新页面问题
-const history = require('connect-history-api-fallback')
-app.use(history())
-app.use(express.static('public'))
+// const history = require('connect-history-api-fallback')
+// app.use(history())
+// app.use(express.static('public'))
 
 // 前段接口代理
-const {createProxyMiddleware} = require('http-proxy-middleware')
-app.use(
-    '/wubug',createProxyMiddleware({
-        target:"https://text-vercel.wubug.cn/api",
-        pathRewrite:{'^/wubug':''}
-    })
-)
+// const {createProxyMiddleware} = require('http-proxy-middleware')
+// app.use(
+//     '/wubug',createProxyMiddleware({
+//         target:"https://text-vercel.wubug.cn/api",
+//         pathRewrite:{'^/wubug':''}
+//     })
+// )
 
 
 
@@ -33,7 +33,9 @@ app.use((req,res,next)=>{
     req.prisma = prisma
     next()
 })
-
+app.get('/',async(req,res,next)=>{
+    res.send('express 运行成功')
+})
 
 app.use('/api',apiRouter)
 

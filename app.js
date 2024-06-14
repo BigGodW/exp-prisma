@@ -14,8 +14,8 @@ app.use(express.static('public'))
 const {createProxyMiddleware} = require('http-proxy-middleware')
 app.use(
     '/wubug',createProxyMiddleware({
-        target:"http://localhost:3001/api/",
-        pathRewrite:{'^/wubug':'api'}
+        target:"https://text-vercel.wubug.cn/api",
+        pathRewrite:{'^/wubug':''}
     })
 )
 
